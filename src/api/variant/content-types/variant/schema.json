@@ -49,6 +49,10 @@
       "relation": "manyToMany",
       "target": "api::size.size",
       "inversedBy": "variants"
+    },
+    "discount_price": {
+      "type": "decimal",
+      "min": 0
     }
   }
 }

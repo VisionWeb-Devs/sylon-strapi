@@ -59,6 +59,16 @@
       "relation": "manyToMany",
       "target": "api::color.color",
       "mappedBy": "products"
+    },
+    "feature": {
+      "type": "enumeration",
+      "enum": [
+        "new_in",
+        "top_selling"
+      ]
+    },
+    "discount_price": {
+      "type": "decimal"
     }
   }
 }
