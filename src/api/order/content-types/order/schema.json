@@ -1,0 +1,138 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "order"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "cart_items": {
+      "type": "json",
+      "required": true
+    },
+    "total_price": {
+      "type": "decimal"
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Confirmed",
+        "Shipped",
+        "Delivered",
+        "Returned",
+        "Canceled"
+      ]
+    },
+    "shipping_address": {
+      "type": "json"
+    },
+    "lastname": {
+      "type": "string",
+      "required": true
+    },
+    "firstname": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "appartement": {
+      "type": "text"
+    },
+    "postal_code": {
+      "type": "integer",
+      "required": true
+    },
+    "city": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "integer",
+      "required": true
+    },
+    "order_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "delivery_date": {
+      "type": "date"
+    },
+    "wilaya": {
+      "type": "enumeration",
+      "enum": [
+        "Adrar",
+        "Chlef",
+        "Laghouat",
+        "Oum El Bouaghi",
+        "Batna",
+        "Béjaïa",
+        "Biskra",
+        "Béchar",
+        "Blida",
+        "Bouira",
+        "Tamanrasset",
+        "Tébessa",
+        "Tlemcen",
+        "Tiaret",
+        "Tizi Ouzou",
+        "Alger",
+        "Djelfa",
+        "Jijel",
+        "Sétif",
+        "Saïda",
+        "Skikda",
+        "Sidi Bel Abbès",
+        "Annaba",
+        "Guelma",
+        "Constantine",
+        "Médéa",
+        "Mostaganem",
+        "M'Sila",
+        "Mascara",
+        "Ouargla",
+        "Oran",
+        "El Bayadh",
+        "Illizi",
+        "Bordj Bou Arreridj",
+        "Boumerdès",
+        "El Tarf",
+        "Tindouf",
+        "Tissemsilt",
+        "El Oued",
+        "Khenchela",
+        "Souk Ahras",
+        "Tipaza",
+        "Mila",
+        "Aïn Defla",
+        "Naâma",
+        "Aïn Témouchent",
+        "Ghardaïa",
+        "Relizane",
+        "Beni Abbès",
+        "Bordj Badji Mokhtar",
+        "Djanet",
+        "El M'Ghair",
+        "El Meniaâ",
+        "In Guezzam",
+        "In Salah",
+        "Ouled Djellal",
+        "Timimoun",
+        "Touggourt"
+      ],
+      "required": true
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "orders"
+    }
+  }
+}

@@ -369,12 +369,12 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiProductProduct extends Struct.CollectionTypeSchema {
-  collectionName: 'products';
+export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
+  collectionName: 'categories';
   info: {
-    displayName: 'product';
-    pluralName: 'products';
-    singularName: 'product';
+    displayName: 'category';
+    pluralName: 'categories';
+    singularName: 'category';
   };
   options: {
     draftAndPublish: true;
@@ -387,9 +387,186 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
+      'api::category.category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
+  collectionName: 'customers';
+  info: {
+    displayName: 'customer';
+    pluralName: 'customers';
+    singularName: 'customer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    firstname: Schema.Attribute.String;
+    lastname: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::customer.customer'
+    > &
+      Schema.Attribute.Private;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
+    phone_number: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
+  collectionName: 'orders';
+  info: {
+    displayName: 'order';
+    pluralName: 'orders';
+    singularName: 'order';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.Text & Schema.Attribute.Required;
+    appartement: Schema.Attribute.Text;
+    cart_items: Schema.Attribute.JSON & Schema.Attribute.Required;
+    city: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
+    delivery_date: Schema.Attribute.Date;
+    firstname: Schema.Attribute.String & Schema.Attribute.Required;
+    lastname: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
+      Schema.Attribute.Private;
+    order_date: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    phone_number: Schema.Attribute.Integer & Schema.Attribute.Required;
+    postal_code: Schema.Attribute.Integer & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    shipping_address: Schema.Attribute.JSON;
+    state: Schema.Attribute.Enumeration<
+      ['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Returned', 'Canceled']
+    >;
+    total_price: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wilaya: Schema.Attribute.Enumeration<
+      [
+        'Adrar',
+        'Chlef',
+        'Laghouat',
+        'Oum El Bouaghi',
+        'Batna',
+        'B\u00E9ja\u00EFa',
+        'Biskra',
+        'B\u00E9char',
+        'Blida',
+        'Bouira',
+        'Tamanrasset',
+        'T\u00E9bessa',
+        'Tlemcen',
+        'Tiaret',
+        'Tizi Ouzou',
+        'Alger',
+        'Djelfa',
+        'Jijel',
+        'S\u00E9tif',
+        'Sa\u00EFda',
+        'Skikda',
+        'Sidi Bel Abb\u00E8s',
+        'Annaba',
+        'Guelma',
+        'Constantine',
+        'M\u00E9d\u00E9a',
+        'Mostaganem',
+        "M'Sila",
+        'Mascara',
+        'Ouargla',
+        'Oran',
+        'El Bayadh',
+        'Illizi',
+        'Bordj Bou Arreridj',
+        'Boumerd\u00E8s',
+        'El Tarf',
+        'Tindouf',
+        'Tissemsilt',
+        'El Oued',
+        'Khenchela',
+        'Souk Ahras',
+        'Tipaza',
+        'Mila',
+        'A\u00EFn Defla',
+        'Na\u00E2ma',
+        'A\u00EFn T\u00E9mouchent',
+        'Gharda\u00EFa',
+        'Relizane',
+        'Beni Abb\u00E8s',
+        'Bordj Badji Mokhtar',
+        'Djanet',
+        "El M'Ghair",
+        'El Menia\u00E2',
+        'In Guezzam',
+        'In Salah',
+        'Ouled Djellal',
+        'Timimoun',
+        'Touggourt',
+      ]
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
+  info: {
+    description: '';
+    displayName: 'product';
+    pluralName: 'products';
+    singularName: 'product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    color: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    discount_price: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
       'api::product.product'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     photos: Schema.Attribute.Media<'images', true>;
     price: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
@@ -401,8 +578,18 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       > &
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
+    size: Schema.Attribute.String;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
+    stock_quantity: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    tags: Schema.Attribute.String;
     thumbnail: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -918,6 +1105,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::category.category': ApiCategoryCategory;
+      'api::customer.customer': ApiCustomerCustomer;
+      'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
