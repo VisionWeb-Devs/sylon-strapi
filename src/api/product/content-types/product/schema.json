@@ -29,36 +29,9 @@
         "images"
       ]
     },
-    "photos": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "description": {
-      "type": "text"
-    },
-    "discount_price": {
-      "type": "decimal",
-      "max": 0,
-      "default": 0
-    },
     "slug": {
       "type": "string",
       "required": true
-    },
-    "color": {
-      "type": "string"
-    },
-    "size": {
-      "type": "string"
-    },
-    "stock_quantity": {
-      "type": "integer",
-      "max": 0,
-      "default": 0
     },
     "tags": {
       "type": "string"
@@ -68,6 +41,24 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "variants": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::variant.variant",
+      "mappedBy": "product"
+    },
+    "sizes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::size.size",
+      "mappedBy": "products"
+    },
+    "colors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::color.color",
+      "mappedBy": "products"
     }
   }
 }
