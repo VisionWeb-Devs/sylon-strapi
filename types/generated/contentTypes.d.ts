@@ -425,6 +425,7 @@ export interface ApiColorColor extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variants: Schema.Attribute.Relation<'manyToMany', 'api::variant.variant'>;
   };
 }
 
@@ -631,12 +632,14 @@ export interface ApiSizeSize extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variants: Schema.Attribute.Relation<'manyToMany', 'api::variant.variant'>;
   };
 }
 
 export interface ApiVariantVariant extends Struct.CollectionTypeSchema {
   collectionName: 'variants';
   info: {
+    description: '';
     displayName: 'Variant';
     pluralName: 'variants';
     singularName: 'variant';
@@ -645,6 +648,7 @@ export interface ApiVariantVariant extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    colors: Schema.Attribute.Relation<'manyToMany', 'api::color.color'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -665,6 +669,7 @@ export interface ApiVariantVariant extends Struct.CollectionTypeSchema {
       >;
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    sizes: Schema.Attribute.Relation<'manyToMany', 'api::size.size'>;
     sku: Schema.Attribute.String;
     stock_quantity: Schema.Attribute.Integer &
       Schema.Attribute.Required &

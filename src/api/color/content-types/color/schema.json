@@ -23,6 +23,12 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "inversedBy": "colors"
+    },
+    "variants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::variant.variant",
+      "mappedBy": "colors"
     }
   }
 }

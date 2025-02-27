@@ -4,7 +4,8 @@
   "info": {
     "singularName": "variant",
     "pluralName": "variants",
-    "displayName": "Variant"
+    "displayName": "Variant",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -30,12 +31,24 @@
       "required": true
     },
     "images": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "colors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::color.color",
+      "inversedBy": "variants"
+    },
+    "sizes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::size.size",
+      "inversedBy": "variants"
     }
   }
 }

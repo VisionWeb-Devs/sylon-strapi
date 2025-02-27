@@ -21,6 +21,12 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "inversedBy": "sizes"
+    },
+    "variants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::variant.variant",
+      "mappedBy": "sizes"
     }
   }
 }
