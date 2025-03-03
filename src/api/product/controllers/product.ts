@@ -24,6 +24,7 @@ export default factories.createCoreController(
           variants: {
             populate: {
               images: true,
+              colors: true,
             },
           },
         },
@@ -37,6 +38,39 @@ export default factories.createCoreController(
       }
 
       return response;
+    },
+    async findVariant(ctx) {
+      const { slug, sku } = ctx.params;
+
+      const slugs = slug.split(",");
+      const skus = sku.split(",");
+
+      if (slugs.length < 1 || skus.length < 1) {
+        return ctx.badRequest();
+      }
+
+      const products = [];
+
+      for (let i = 0; i < slugs.length; i++) {
+        const response = await strapi.db.query("api::product.product").findOne({
+          where: { slug: slugs[i] },
+          populate: {
+            variants: {
+              where: { sku: skus[i] },
+              populate: {
+                images: true,
+                colors: true,
+              },
+            },
+          },
+        });
+        if (!response) {
+          return ctx.notFound();
+        }
+        products.push(response);
+      }
+
+      return products;
     },
   })
 );
